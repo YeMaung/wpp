@@ -49,7 +49,7 @@ class CustomerController extends Controller
 
     		return Datatables::of($customers)
 			    ->filter(function ($query) use ($request,$start,$end) {
-                if ($request->get('start') != "" && $request->get('end') != "") {
+                if ($request->get('start') != "") {
                 	$query->whereDate('transactionlog.transactionlog_datetime','>=', $start);
                 }
                 if ($request->get('end') != "") {
