@@ -17,6 +17,7 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin'], function() {
 	Route::get('login','LoginController@loginForm');
 	Route::post('login','LoginController@login');
 	Route::resource('post', 'PostController');
+	Route::get('customer','CustomerController@index');
 	
 });
 

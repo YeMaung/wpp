@@ -23,9 +23,7 @@
 <body>
 	@include('admin.layout.partials.header')
 
-	<div class="container">
-		@yield('content')
-	</div>
+	@yield('content')
 
 	@include('admin.layout.partials.footer')
 
