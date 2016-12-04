@@ -66,10 +66,11 @@ $(document).ready(function(){
     });
     $('#end').datepicker({
         format: 'yyyy-mm-dd',
-        startDate: '2015-08-07',
         autoclose: true
     });
 })
+
+
 
 $(function() {
     $.ajaxSetup({
@@ -87,8 +88,8 @@ $(function() {
         ajax: {
             url: '/admin/customer',
             data: function (d) {
-                d.start = $('#start').val();
-                d.end = $('#end').val();
+                d.start_date = $('#start').val();
+                d.end_date = $('#end').val();
             }
         },
         columns: [

@@ -7,38 +7,53 @@ use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 
 use App\Post;
-use Yajra\Datatables\Facades\Datatables;
+// use Yajra\Datatables\Facades\Datatables;
+// use DB;
+// use Illuminate\Support\Str;
+
+// use DB;
+// use Datatables;
+
 use DB;
-use Illuminate\Support\Str;
+use Yajra\Datatables\Datatables;
+
 
 class PostController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, Datatables $datatables)
     {
         if ($request->ajax()) {
-            $posts = Post::select([
-                    'id',
-                    'title',
-                    'body',
-                    DB::raw("CAST(posts.created_at AS DATE) as start"),
-                    DB::raw("CAST(posts.updated_at AS DATE) as end"),
-                ]);
+            // $posts = Post::select([
+            //         'transactionlog_datetime',
+            //         'trx',
+            //         'activities_ref',
+            //         // DB::raw("CAST(posts.created_at AS DATE) as start"),
+            //         // DB::raw("CAST(posts.updated_at AS DATE) as end"),
+            //     ]);
 
-            return Datatables::of($posts)
-                ->filter(function ($query) use ($request) {
-                    if ($request->has('start')) {
-                        return $query->where('posts.created_at', '>=', $request->get('start'));
-                    }
-                    if ($request->has('end')) {
-                        return $query->where('posts.updated_at', '<=', $request->get('end'));
-                    }
-                })
-            ->make(true);
+            // return Datatables::of($posts)
+            //     // ->filter(function ($query) use ($request) {
+            //     //     if ($request->has('start')) {
+            //     //         return $query->where('posts.created_at', '>=', $request->get('start'));
+            //     //     }
+            //     //     if ($request->has('end')) {
+            //     //         return $query->where('posts.updated_at', '<=', $request->get('end'));
+            //     //     }
+            //     // })
+            // ->make(true);
+
+            // $query = DB::table('transactionlog');
+
+            // return Datatables::queryBuilder($query)->make(true);
+
+            $query = DB::table('posts');
+
+            return $datatables->queryBuilder($query)->make(true);
         }
     	return view('admin.post.index');
     }

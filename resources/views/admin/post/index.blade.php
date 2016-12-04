@@ -31,11 +31,12 @@
 	<table class="table table-bordered" id="users-table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Post Id</th>
                 <th>Title</th>
                 <th>Body</th>
-                <th>CreatedDate</th>
-                <th>UpdatedDate</th>
+                {{-- <th>Activities Ref</th> --}}
+                {{-- <th>CreatedDate</th>
+                <th>UpdatedDate</th> --}}
             </tr>
         </thead>
     </table>
@@ -78,16 +79,17 @@ $(function() {
         ajax: {
             url: '/admin/post',
             data: function (d) {
-                d.name = $('input[name=name]').val();
-                d.email = $('input[name=email]').val();
+                d.start = $('input[name=start]').val();
+                d.end = $('input[name=end]').val();
             }
         },
         columns: [
             {data: 'id', name: 'id'},
             {data: 'title', name: 'title'},
             {data: 'body', name: 'body'},
-            {data: 'start', name: 'start'},
-            {data: 'end', name: 'end'}
+            // {data: 'activities_ref', name: 'activities_ref'},
+            // {data: 'start', name: 'start'},
+            // {data: 'end', name: 'end'}
         ]
     });
 

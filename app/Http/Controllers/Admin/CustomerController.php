@@ -15,12 +15,6 @@ class CustomerController extends Controller
 
     	if ($request->ajax()) {
 
-			// $start = '2015-08-21';
-			// $end = '2015-08-21';
-
-			$start = $request->get('start');
-			$end = $request->get('end');
-
     		$customers = DB::table('transactionlog')
 							->leftjoin('agentcard','transactionlog.agent_card_ref','=','agentcard.agentcard_ref')
 							->leftjoin('topup','transactionlog.transactionlog_id','=','topup.transactionlog_id')
@@ -48,14 +42,14 @@ class CustomerController extends Controller
 								]);
 
     		return Datatables::of($customers)
-			    ->filter(function ($query) use ($request,$start,$end) {
-                if ($request->get('start') != "") {
-                	$query->whereDate('transactionlog.transactionlog_datetime','>=', $start);
-                }
-                if ($request->get('end') != "") {
-                    $query->whereDate('transactionlog.transactionlog_datetime','<=', $end);
-                }
-          	})
+			    ->filter(function ($query) use ($request) {
+	                if ($request->has('start_date')) {
+	                    $query->whereDate('transactionlog.transactionlog_datetime', '>=', "{$request->get('start_date')}");
+	                }
+	                if ($request->has('end_date')) {
+	                    $query->whereDate('transactionlog.transactionlog_datetime','<=', "{$request->get('end_date')}");
+	                }
+	          	})
     		->make(true);
 
         }
